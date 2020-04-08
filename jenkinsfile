@@ -1,0 +1,17 @@
+pipeline {
+    agent { docker 'maven:3.6-ibmjava-alpine' }
+    stages {
+        stage('Checkout') {
+            steps {
+               git 'https://github.com/rafik8080/spring-petclinic.git'
+          }
+     }
+     stage('Build') {
+          steps {
+            sh 'mvn clean package'
+              junit '**/target/surefire-reports/TEST-*.xml'
+       }
+     }
+   }
+}
+
